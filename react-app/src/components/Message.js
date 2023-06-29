@@ -4,7 +4,8 @@ import { Component } from "react";
 class Message extends Component {
   //đối với class phải sử dụng render() để khai báo
   render() {
-    return <h1>This is a Class Components</h1>;
+    // props sử dụng this khi gọi class
+    return <h1>Message: {this.props.messagecontent}</h1>;
   }
 }
 
