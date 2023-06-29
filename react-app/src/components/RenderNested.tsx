@@ -24,7 +24,7 @@ const Fruits = () => {
 };
 
 class TypesOfFood extends React.Component {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
   }
   render() {
