@@ -9,6 +9,11 @@ import Counter from "./components/Counter";
 import Resume from "./components/Resume";
 import FunctionEvent from "./components/FunctionEvent";
 import ClassEvent from "./components/FunctionEvent";
+import FunctionalCounter from "./components/FunctionalCounter";
+import ConditionalComponent from "./components/ConditionalComponent";
+import Product from "./components/Product";
+import Form from "./components/Form";
+import Todo from "./components/Todo";
 
 function App() {
   return (
@@ -26,6 +31,11 @@ function App() {
       <Resume name="Destructuring Props" />
       <FunctionEvent /> <br />
       <ClassEvent />
+      <FunctionalCounter />
+      <ConditionalComponent />
+      <Product />
+      <Form />
+      <Todo />
     </div>
   );
 }
