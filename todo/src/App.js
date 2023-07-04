@@ -1,4 +1,5 @@
 import Header from "./components/Header";
+import { Outlet } from "react-router-dom";
 import Form from "./components/Form";
 import { useState } from "react";
 import TodoList from "./components/TodoList";
@@ -13,7 +14,12 @@ function App() {
   const [todoList, setTodoList] = useState([]);
   return (
     <div className="App">
-      <Header></Header>
+      <div className="app-header">
+        <Header />
+      </div>
+      <div className="app-content">
+        <Outlet />
+      </div>
       <Form
         todo={todo}
         setTodo={setTodo}

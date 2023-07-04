@@ -2,14 +2,14 @@ body {
     margin: 0;
     font-family: sans-serif;
 }
-.header {
+/* .header {
     background-color: #0E9549;
     height: 40px;
     font-size: 2em;
     color: white;
     padding: 15px;
     text-align: center;
-}
+} */
 .todoform {
     width: 70%;
     margin: auto;

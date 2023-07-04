@@ -1,12 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
 import App from "./App";
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Admin from "./components/Admin";
+import User from "./components/User";
+import Home from "./components/Home";
+import Counter from "./components/Counter";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="admins" element={<Admin />} />
+          <Route path="users" element={<User />} />
+          <Route path="counter" element={<Counter />} />
+          {/* thêm index trả về nội dung mặc định */}
+          <Route index element={<Home />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
