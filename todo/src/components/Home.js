@@ -1,5 +1,10 @@
+import UseEffect from "./Hooks/UseEffect";
 const Home = (props) => {
-  return <div>default content homepage</div>;
+  return (
+    <div>
+      <UseEffect />
+    </div>
+  );
 };
 
 export default Home;

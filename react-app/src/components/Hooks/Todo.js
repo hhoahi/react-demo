@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ListItem from "./ListItem";
 
 export default function Todo() {
   const [todo, setTodo] = useState("");
@@ -15,6 +16,7 @@ export default function Todo() {
     tempList.push(todo);
     setTodolist(tempList); //cập nhật danh sách todo mới cho component hiện tại
     console.log(todoList);
+    setTodo("");
   };
   return (
     <div>
@@ -22,6 +24,12 @@ export default function Todo() {
         <input value={todo} onChange={handleChange} type="text"></input>
         <button type="submit">Add</button>
       </form>
+
+      {todoList.map((item) => (
+        <ListItem key={item} name={item}>
+          ListItem
+        </ListItem>
+      ))}
     </div>
   );
 }
