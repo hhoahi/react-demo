@@ -43,11 +43,9 @@ function UseEffect() {
       }
     };
     window.addEventListener("scroll", handleScroll);
-    console.log("thêm");
     //Cleanup Function
     return () => {
       window.addEventListener("scroll", handleScroll);
-      console.log("xóa");
     };
   }, []);
 
@@ -59,7 +57,7 @@ function UseEffect() {
   };
 
   return (
-    <div style={{ padding: 32, textAlign: "center"}}>
+    <div style={{ padding: 32, textAlign: "center" }}>
       <h4>Call API</h4>
       {/* tạo ra nút mount/unmount và input thay đổi title */}
       {/* <button onClick={() => setShow(!show)}>Toggle</button> <br />

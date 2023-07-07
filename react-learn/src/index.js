@@ -7,23 +7,23 @@ import Admin from "./components/Admin";
 import User from "./components/User";
 import Home from "./components/Home";
 import Edit from "./components/Edit";
-// import { store } from "./app/store";
-// import { Provider } from "react";
+import { store } from "./app/store";
+import { Provider } from "react-redux";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        {/* <Provider store={store}></Provider> */}
-        <Route path="/" element={<App />}>
-          <Route path="admins" element={<Admin />} />
-          <Route path="users" element={<User />} />
-          <Route path="edit" element={<Edit />} />
-          {/* thêm index trả về nội dung mặc định */}
-          <Route index element={<Home />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route path="admins" element={<Admin />} />
+            <Route path="users" element={<User />} />
+            <Route path="edit" element={<Edit />} />
+            <Route index element={<Home />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
