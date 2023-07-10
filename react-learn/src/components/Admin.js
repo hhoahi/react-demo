@@ -1,10 +1,12 @@
 import UseState from "./Hooks/UseState";
-import Counter from "./Hooks/Counter";
+import UseStateClass from "./Hooks/UseStateClass";
+import UseStateFunc from "./Hooks/UseStateFunc";
 const Admin = (props) => {
   return (
     <div>
       <UseState />
-      <Counter />
+      <UseStateFunc />
+      <UseStateClass />
     </div>
   );
 };

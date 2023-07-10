@@ -11,7 +11,7 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {/*SPA: dùng link to kh bị load lại page */}
-            <Link to="/" className="nav-link active">
+            <Link to="/" className="nav-link">
               UseEffect
             </Link>
             <Link to="/users" className="nav-link">

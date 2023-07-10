@@ -7,12 +7,12 @@ import Admin from "./components/Admin";
 import User from "./components/User";
 import Home from "./components/Home";
 import Edit from "./components/Edit";
-import { store } from "./app/store";
-import { Provider } from "react-redux";
+// import { store } from "./app/store";
+// import { Provider } from "react-redux";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    {/* <Provider store={store}> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
@@ -23,7 +23,7 @@ root.render(
           </Route>
         </Routes>
       </BrowserRouter>
-    </Provider>
+    {/* </Provider> */}
   </React.StrictMode>
 );
 

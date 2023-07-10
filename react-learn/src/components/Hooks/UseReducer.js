@@ -12,9 +12,10 @@ const initState = 0;
 //actions
 const UP_ACTION = "up";
 const DOWN_ACTION = "down";
+const DELETE_ACTION = "delete";
 
 //reducer: hàm Nhận 2 tham số là state và action
-//dựa vào action trả về state mới 
+//dựa vào action trả về state mới
 const reducer = (state, action) => {
   console.log("reducer run");
   switch (action) {
@@ -22,19 +23,45 @@ const reducer = (state, action) => {
       return state + 1;
     case DOWN_ACTION:
       return state - 1;
+    case DELETE_ACTION:
+      return 0;
+    case "ASSIGN_ACTION":
+      return action.data;
     default:
       throw new Error("Invalid action");
   }
 };
 
-//Dispatch: Kích hoạt 1 action. Chỉ sử dụng khi dùng Reducer
-function UseReducer() { 
+const reducer2 = (state, action) => {
+  switch (action.type) {
+    case "ASSIGN_ACTION":
+      return action.data;
+    default:
+      throw new Error("Invalid action");
+  }
+};
+
+//Dispatch:là 1 func để truyền đi 1 action. Chỉ sử dụng khi dùng Reducer
+function UseReducer() {
   const [count, dispatch] = useReducer(reducer, initState);
+  const [count2, dispatch2] = useReducer(reducer2, initState);
   return (
     <div style={{ padding: 32, textAlign: "center" }}>
       <h4>{count}</h4>
       <button onClick={() => dispatch(DOWN_ACTION)}>Down</button>
       <button onClick={() => dispatch(UP_ACTION)}>Up</button>
+      <button onClick={() => dispatch(DELETE_ACTION)}>Delete</button>
+      <h4>{count2}</h4>
+      <button
+        onClick={() =>
+          dispatch2({
+            type: "ASSIGN_ACTION",
+            data: 10,
+          })
+        }
+      >
+        Assign value
+      </button>
     </div>
   );
 }

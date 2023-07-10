@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 const tabs = ["posts", "comments", "albums", "todos", "users"];
 
+//Dùng khi muốn thực hiện các Side Effects 
+//(khi có một tác động xảy ra dẫn đến dữ liệu của chương trình thay đổi)
 function UseEffect() {
   // const [show, setShow] = useState(false);
   const [title, setTitle] = useState("");
@@ -59,16 +61,7 @@ function UseEffect() {
   return (
     <div style={{ padding: 32, textAlign: "center" }}>
       <h4>Call API</h4>
-      {/* tạo ra nút mount/unmount và input thay đổi title */}
-      {/* <button onClick={() => setShow(!show)}>Toggle</button> <br />
-      {show && (
-        <ul>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} />
-          {posts.map((post) => (
-            <li key={post.id}>{post.title}</li>
-          ))}
-        </ul>
-      )} */}
+
       {/* tạo ra một danh sách các nút dựa trên một mảng các "tab" 
       và xử lý sự kiện click trên mỗi nút để cập nhật trạng thái "type"*/}
       {tabs.map((tab) => (
