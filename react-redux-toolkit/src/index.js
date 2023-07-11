@@ -2,14 +2,24 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
+import Counter from "./features/counter/index";
+import PostList from "./features/post/index";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Router>
+        <Routes>
+          <Route path="counter" element={<Counter />} />
+          <Route path="post" element={<PostList />} />
+          <Route path="/" element={<App />}></Route>
+        </Routes>
+      </Router>
     </Provider>
   </React.StrictMode>
 );
