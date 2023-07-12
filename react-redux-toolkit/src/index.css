@@ -6,8 +6,6 @@
 
 html {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  background: #333;
-  color: whitesmoke;
 }
 
 body {
@@ -17,15 +15,6 @@ body {
   
 }
 
-input,
-textarea,
-button,
-select {
-  font: inherit;
-  margin-bottom: 1em;
-  border-radius: 5px;
-  padding: 10px;
-}
 
 main {
   max-width: 500px;

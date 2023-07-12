@@ -1,28 +1,37 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { nanoid } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
+
 import { postAdded } from "./postsSlide";
+import { selectAllUsers } from "../users/usersSlice";
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [userId, setUserId] = useState("");
+
+  const users = useSelector(selectAllUsers);
 
   const onTitleChanged = (e) => setTitle(e.target.value);
   const onContentChanged = (e) => setContent(e.target.value);
+  const onAuthorChanged = (e) => setUserId(e.target.value);
 
   const addPost = () => {
     if (title && content) {
-      dispatch(
-        postAdded({
-          id: nanoid(),
-          title,
-          content,
-        })
-      );
+      dispatch(postAdded(title, content, userId));
+      setTitle("");
+      setContent("");
     }
-    console.log(title, content);
   };
+
+  const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
+
+  const usersOptions = users.map((user) => (
+    <option key={user.id} value={user.id}>
+      {user.name}
+    </option>
+  ));
+
   return (
     <div>
       <section>
@@ -35,7 +44,13 @@ const AddPostForm = () => {
             value={title}
             onChange={onTitleChanged}
           ></input>
-          <br />
+
+          <label>Author:</label>
+          <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
+            <option></option>
+            {usersOptions}
+          </select>
+
           <label>Post content:</label>
           <textarea
             id="postContent"
@@ -43,11 +58,12 @@ const AddPostForm = () => {
             value={content}
             onChange={onContentChanged}
           ></textarea>
-          <br />
+
           <button
             type="button"
             style={{ maxWidth: 100, marginLeft: 85, borderRadius: 5 }}
             onClick={() => addPost()}
+            disabled={!canSave}
           >
             Save Post
           </button>

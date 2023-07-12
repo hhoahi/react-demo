@@ -23,8 +23,18 @@ const Counter = () => {
     <section>
       <p>{count}</p>
       <div>
-        <button onClick={() => dispatch(increment())}>+</button>
-        <button onClick={() => dispatch(decrement())}>-</button>
+        <button
+          onClick={() => dispatch(increment())}
+          style={{ color: "#181818" }}
+        >
+          +
+        </button>
+        <button
+          onClick={() => dispatch(decrement())}
+          style={{ color: "#181818" }}
+        >
+          -
+        </button>
       </div>
 
       <input
@@ -34,10 +44,15 @@ const Counter = () => {
       />
 
       <div>
-        <button onClick={() => dispatch(incrementByAmount(addValue))}>
+        <button
+          onClick={() => dispatch(incrementByAmount(addValue))}
+          style={{ color: "#181818" }}
+        >
           Add Amount
         </button>
-        <button onClick={resetAll}>Reset</button>
+        <button onClick={resetAll} style={{ color: "#181818" }}>
+          Reset
+        </button>
       </div>
     </section>
   );

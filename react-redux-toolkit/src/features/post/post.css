@@ -1,3 +1,22 @@
 .container {
     display: flex;
+    justify-content:center;
+}
+body {
+    background-color: rgb(168, 154, 154);
+    color: aliceblue;
+}
+
+input,
+textarea,
+button,
+select {
+  font: inherit;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+button {
+    color: aliceblue;
 }
