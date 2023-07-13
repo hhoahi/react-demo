@@ -7,6 +7,7 @@ import { store } from "./app/store";
 import { Provider } from "react-redux";
 import Counter from "./features/counter/index";
 import PostList from "./features/post/index";
+import { SinglePostPage } from "./features/post/SinglePostPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -17,7 +18,8 @@ root.render(
         <Routes>
           <Route path="counter" element={<Counter />} />
           <Route path="post" element={<PostList />} />
-          <Route path="/" element={<App />}></Route>
+          <Route path="/" element={<App />} />
+          <Route exact path="/posts/:postId" component={SinglePostPage} />
         </Routes>
       </Router>
     </Provider>

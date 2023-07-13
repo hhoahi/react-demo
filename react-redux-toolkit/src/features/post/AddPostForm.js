@@ -16,6 +16,8 @@ const AddPostForm = () => {
   const onContentChanged = (e) => setContent(e.target.value);
   const onAuthorChanged = (e) => setUserId(e.target.value);
 
+  //lấy title, content từ useState hook, tạo một ID mới 
+  //=> đặt chúng lại với nhau thành addPost mà ta chuyển đến postAdded()
   const addPost = () => {
     if (title && content) {
       dispatch(postAdded(title, content, userId));
