@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { postAdded } from "./postsSlide";
+import { addNewPost } from "./postsSlide";
 import { selectAllUsers } from "../users/usersSlice";
 
 const AddPostForm = () => {
@@ -9,6 +9,7 @@ const AddPostForm = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [userId, setUserId] = useState("");
+  const [addRequestStatus, setAddRequestStatus] = useState("idle");
 
   const users = useSelector(selectAllUsers);
 
@@ -16,17 +17,27 @@ const AddPostForm = () => {
   const onContentChanged = (e) => setContent(e.target.value);
   const onAuthorChanged = (e) => setUserId(e.target.value);
 
-  //lấy title, content từ useState hook, tạo một ID mới 
-  //=> đặt chúng lại với nhau thành addPost mà ta chuyển đến postAdded()
+  const canSave =
+    [title, content, userId].every(Boolean) && addRequestStatus === "idle";
+
   const addPost = () => {
-    if (title && content) {
-      dispatch(postAdded(title, content, userId));
-      setTitle("");
-      setContent("");
+    if (canSave) {
+      try {
+        setAddRequestStatus("pending");
+        //khi gọi dispatch(addNewPost()), thunk async trả về Promise từ dispatch. 
+        //có thể đợi promise ở đây để biết khi nào thunk đã hoàn thành yêu cầu của nó.
+        dispatch(addNewPost({ title, body: content, userId })).unwrap();
+
+        setTitle("");
+        setContent("");
+        setUserId("");
+      } catch (err) {
+        console.error("Failed to save the post", err);
+      } finally {
+        setAddRequestStatus("idle");
+      }
     }
   };
-
-  const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
 
   const usersOptions = users.map((user) => (
     <option key={user.id} value={user.id}>

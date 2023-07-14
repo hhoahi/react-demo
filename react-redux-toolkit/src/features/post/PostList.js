@@ -8,12 +8,8 @@ import {
   fetchPosts,
 } from "./postsSlide";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import PostsExcerpt from "./PostsExcerpt";
 import AddPostForm from "./AddPostForm";
-import PostAuthor from "./PostAuthor";
-import TimeAgo from "./TimeAgo";
-import ReactionButtons from "./ReactionButtons";
 import "./post.css";
 
 const PostsList = () => {
@@ -21,39 +17,37 @@ const PostsList = () => {
 
   //PostsList sẽ đọc state.posts giá trị từ Redux store
   const posts = useSelector(selectAllPosts);
-  const postsStatus = useSelector(getPostsStatus);
-  const postsError = useSelector(getPostsError);
+  const postStatus = useSelector(getPostsStatus);
+  const error = useSelector(getPostsError);
 
+  //tìm nạp dữ liệu khi <PostsList> đã gắn kết
   useEffect(() => {
-    if (postsStatus === "idle") {
+    if (postStatus === "idle") {
       dispatch(fetchPosts());
     }
-  }, [postsStatus, dispatch]);
+  }, [postStatus, dispatch]);
 
-  //sau đó lặp qua mảng các bài post và hiển thị từng post trên màn hình
-  const renderedPosts = posts.map((post) => {
-    return (
-      <article key={post.id}>
-        <h3>{post.title}</h3>
-        <p>{post.content.substring(0, 100)}</p>
-        <Link to={`/posts/${post.id}`} className="button muted-button">
-          View Post
-        </Link>
-        <p className="postCredit">
-          <PostAuthor userId={post.userId} />
-          <TimeAgo timestamp={post.date} />
-        </p>
-        <ReactionButtons post={post} />
-      </article>
-    );
-  });
+  let content;
+  if (postStatus === "loading") {
+    content = <p>"Loading..."</p>;
+  } else if (postStatus === "succeeded") {
+    //Sắp xếp các bài đăng theo thứ tự thời gian đảo ngược theo chuỗi ngày giờ
+    const orderedPosts = posts
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date));
+    content = orderedPosts.map((post) => (
+      <PostsExcerpt key={post.id} post={post} />
+    ));
+  } else if (postStatus === "failed") {
+    content = <p>{error}</p>;
+  }
+
   return (
-    <div>
+    <section>
       <h2>Posts</h2>
-      <div className=""></div>
-      {renderedPosts}
       <AddPostForm />
-    </div>
+      {content}
+    </section>
   );
 };
 
