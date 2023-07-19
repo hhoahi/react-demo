@@ -1,104 +1,46 @@
-import { useEffect, useState } from "react";
-const tabs = ["posts", "comments", "albums", "todos", "users"];
+import { useState, useEffect } from "react";
 
-//Dùng khi muốn thực hiện các Side Effects 
-//(khi có một tác động xảy ra dẫn đến dữ liệu của chương trình thay đổi)
 function UseEffect() {
-  // const [show, setShow] = useState(false);
-  const [title, setTitle] = useState("");
-  const [posts, setPosts] = useState([]);
-  const [type, setType] = useState("posts");
-  const [showGoToTop, setShowGoToTop] = useState(false);
-  //Update title DOM
-  useEffect(() => {
-    document.title = title;
-  });
+  const [data, setData] = useState([]);
 
-  //Call API
-  // useEffect(callback, [])
-  // - Chỉ gọi callback một lần sau khi component mounted
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((res) => res.json())
-      .then((posts) => {
-        setPosts(posts);
+  const fetchData = () => {
+    fetch(`https://dummyjson.com/products`)
+      .then((response) => response.json())
+      .then((actualData) => {
+        console.log(actualData);
+        setData(actualData.products);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
       });
-  }, []);
-
-  //useEffect(callback, [deps])
-  // - Callback được gọi lại mỗi khi deps thay đổi
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/${type}`)
-      .then((res) => res.json())
-      .then((posts) => {
-        setPosts(posts);
-      });
-  }, [type]);
-
-  //scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY >= 200) {
-        setShowGoToTop(true);
-      } else {
-        setShowGoToTop(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    //Cleanup Function
-    return () => {
-      window.addEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const handleGotoTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   };
 
-  return (
-    <div style={{ padding: 32, textAlign: "center" }}>
-      <h4>Call API</h4>
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-      {/* tạo ra một danh sách các nút dựa trên một mảng các "tab" 
-      và xử lý sự kiện click trên mỗi nút để cập nhật trạng thái "type"*/}
-      {tabs.map((tab) => (
-        <button
-          key={tab}
-          style={
-            type === tab
-              ? {
-                  color: "#fff",
-                  backgroundColor: "#333",
-                }
-              : {}
-          }
-          onClick={() => setType(tab)}
-        >
-          {tab}
-        </button>
+  return (
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Rating</th>
+      </tr>
+      {data.map((item, index) => (
+        <tr key={index}>
+          <td>{item.title}</td>
+          <td>{item.brand}</td>
+          <td>
+            <img src={item.thumbnail} alt="" height={100} />
+          </td>
+          <td>{item.price}</td>
+          <td>{item.rating}</td>
+        </tr>
       ))}
-      <input value={title} onChange={(e) => setTitle(e.target.value)} />
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>{post.title || post.name}</li>
-        ))}
-      </ul>
-      {showGoToTop && (
-        <button
-          onClick={() => handleGotoTop()}
-          style={{
-            position: "fixed",
-            right: 20,
-            bottom: 70,
-          }}
-        >
-          Go to top
-        </button>
-      )}
-    </div>
+    </tbody>
   );
 }
 

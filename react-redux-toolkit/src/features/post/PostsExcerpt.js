@@ -2,6 +2,7 @@ import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
 import ReactionButtons from "./ReactionButtons";
 
+//đóng gói render cho một mục trong danh sách.
 const PostsExcerpt = ({ post }) => {
   return (
     <article>
